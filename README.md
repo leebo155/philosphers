@@ -5,9 +5,15 @@
 
  ## Introduction
  * This project is to recreate the dining philosophers problem in code.
+ * One or more philosophers sit at a round table. There is a large bowl of spaghetti in the middle of the table.
+ * The philosophers alternatively eat, think, or sleep. While they are eating, they are not thinking nor sleeping; while thinking, they are not eating nor sleeping; and, of course, while sleeping, they are not eating nor thinking.
+ * There are also forks on the table. There are as many forks as philosophers.
+ * Because serving and eating spaghetti with only one fork is very inconvenient, a philosopher takes their right and their left forks to eat, one in each hand.
+ * When a philosopher has finished eating, they put their forks back on the table and start sleeping. Once awake, they start thinking again. The simulation stops when a philosopher dies of starvation.
+ * Philosopher number 1 sits next to philosopher number number_of_philosophers. Any other philosopher number N sits between philosopher number N - 1 and philosopher number N + 1.
  * The program simulates the problem and outputs the changing philosophers states.   
   ```shall
-  ./philo 5 50 30 40
+  $> ./philo 5 50 30 40
   0 3 has taken a fork
   0 1 has taken a fork
   0 2 is thinking
@@ -29,13 +35,17 @@
   50 2 died
   ```
 
-  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers1.jpg">
-  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers2.jpg">
-  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers3.jpg">
-  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers4.jpg">
-
 ## Process
+* Flowchart
   <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers5.jpg">
+* To prevent deadlocks, adopt a non-circular waiting approach.
+  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers1.jpg">
+* To avoid starvation as much as possible, philos briefly wait based on remaining lifespan.
+  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers2.jpg">
+* Use mutex to prevent unintended data modification in data race.
+  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers3.jpg">
+* The philo structure contains data that the philosopher threads will reference during the simulation. The rule structure contains data that the main thread will reference for termination conditions and is also shared among the philosopher threads.
+  <img alt="image" src="https://github.com/leebo155/philosphers/blob/main/img/phliosophers4.jpg">
 
  ## Makefile
 | Rules | Description |
